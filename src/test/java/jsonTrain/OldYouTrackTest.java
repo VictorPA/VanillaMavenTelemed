@@ -11,10 +11,7 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.SAXValidator;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -29,13 +26,14 @@ import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.util.*;
 
-import static jsonTrain.YouTrackTest.YouTrackIssueFields.*;
+import static jsonTrain.OldYouTrackTest.YouTrackIssueFields.*;
+import static org.hamcrest.core.Is.is;
 
 /**
  * @author Victor Papakirikos (vpa)
  * @since 13/07/2016
  */
-public class YouTrackTest {
+public class OldYouTrackTest {
 
     List<String> cookies = new ArrayList<>();
 
@@ -108,18 +106,25 @@ public class YouTrackTest {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders newHeaders = new HttpHeaders();
         newHeaders.add("Cookie", cookies.get(0));
+        List<MediaType> testList = new ArrayList<>();
+        testList.add(MediaType.APPLICATION_XML);
+        newHeaders.setAccept(testList);
         HttpEntity<String> entity = new HttpEntity<>("parameters", newHeaders);
+
         ResponseEntity<String> result = restTemplate.exchange(url2, HttpMethod.GET, entity, String.class);
         String xmlResult = result.getBody();
         File file = new File("./temp.xml");
         PrintWriter printWriter = new PrintWriter(file);
-        printWriter.println(xmlResult);
+        printWriter.println(result.getBody());
         printWriter.close();
+
 
         SAXReader reader = new SAXReader();
         Document document = reader.read(file);
         file.delete();
         List<Node> nodes = document.selectNodes("issue/field/*");
+        SAXValidator saxValidator = new SAXValidator();
+        saxValidator.validate(document);
 
         System.out.println("----------------------------");
         for (Node node : nodes) {
@@ -156,5 +161,7 @@ public class YouTrackTest {
         System.out.println(this.youTrackIssueFieldsString.get(DESCRIPTION));
 
     }
+
+
 
 }
