@@ -21,7 +21,7 @@ public class YouTrackApiTest {
     @Test
     public void test() throws ConfigurationException, FileNotFoundException, MalformedURLException, SAXException, DocumentException {
         YouTrackApi youTrackApi = new YouTrackApi();
-        youTrackApi.getCredentials();
+        youTrackApi.getVpaCredentials();
         Issue issue = youTrackApi.getIssue("CMPT-129");
         Assert.assertThat(issue.getEstimation(), is("2 Points"));
         Assert.assertThat(issue.getAssignee(), is("vpa"));

@@ -3,14 +3,8 @@ package com.youTrack;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.logging.impl.Log4JLogger;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.Node;
-import org.dom4j.io.SAXReader;
-
-import org.junit.Assert;
-import org.junit.Test;
 import org.springframework.http.*;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -18,16 +12,9 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import org.xml.sax.SAXException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.hamcrest.core.Is.is;
 
 /**
  * @author Victor Papakirikos (vpa)
@@ -38,7 +25,7 @@ public class YouTrackApi {
     private static org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(Log4JLogger.class);
     private String credentials;
 
-    public void getCredentials() throws ConfigurationException {
+    public void getVpaCredentials() throws ConfigurationException {
         PropertiesConfiguration pc = new PropertiesConfiguration("config.properties");
         String login = (String) pc.getProperty("login");
         String password = (String) pc.getProperty("password");
@@ -62,8 +49,9 @@ public class YouTrackApi {
         return credentials;
     }
 
-    public Issue getIssue(String issueId) throws DocumentException, FileNotFoundException, MalformedURLException, SAXException {
+    public Issue getIssue(String issueId) {
 
+        String xpathExpression = "issue/field/*";
         HttpHeaders httpHeaders = new HttpHeaders();
         List<MediaType> mediaTypes = new ArrayList<>();
         mediaTypes.add(MediaType.APPLICATION_XML);
@@ -78,8 +66,9 @@ public class YouTrackApi {
         ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
         String xmlResult = result.getBody();
 
-        Document document = makeDocument(xmlResult);
-        List<Node> nodes = document.selectNodes("issue/field/*");
+        YouTrackXmlDocument youTrackXmlDocument = YouTrackXmlDocument.getYouTrackXmlDocument(xmlResult);
+
+        List<Node> nodes = youTrackXmlDocument.selectNodes(xpathExpression);
         Issue issue = new Issue();
         for (Node node : nodes) {
             fillField(issue, node);
@@ -105,18 +94,6 @@ public class YouTrackApi {
         list.add(formHttpMessageConverter);
         list.add(stringHttpMessageConverternew);
         rest.setMessageConverters(list);
-    }
-
-    private Document makeDocument(String xmlResult) throws FileNotFoundException, MalformedURLException, DocumentException {
-
-        File file = new File("./temp.xml");
-        PrintWriter printWriter = new PrintWriter(file);
-        printWriter.println(xmlResult);
-        printWriter.close();
-        SAXReader reader = new SAXReader();
-        Document document = reader.read(file);
-
-        return document;
     }
 
     private void fillField(Issue issue, Node node) {

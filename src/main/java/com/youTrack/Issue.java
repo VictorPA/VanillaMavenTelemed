@@ -4,6 +4,10 @@ package com.youTrack;
  * @author Victor Papakirikos (vpa)
  * @since 13/07/2016
  */
+
+/**
+ * Représentation objet de tous les champs d'une issue YouTrack
+ */
 public class Issue {
 
     private String projectShortName;
