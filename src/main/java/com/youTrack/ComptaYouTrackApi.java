@@ -20,7 +20,7 @@ import java.util.List;
  * @author Victor Papakirikos (vpa)
  * @since 13/07/2016
  */
-public class YouTrackApi {
+public class ComptaYouTrackApi {
 
     private static org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(Log4JLogger.class);
     private String credentials;

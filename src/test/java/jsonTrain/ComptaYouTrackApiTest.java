@@ -1,7 +1,7 @@
 package jsonTrain;
 
 import com.youTrack.Issue;
-import com.youTrack.YouTrackApi;
+import com.youTrack.ComptaYouTrackApi;
 import org.apache.commons.configuration.ConfigurationException;
 import org.dom4j.DocumentException;
 import org.junit.Assert;
@@ -17,12 +17,12 @@ import static org.hamcrest.core.Is.is;
  * @author Victor Papakirikos (vpa)
  * @since 13/07/2016
  */
-public class YouTrackApiTest {
+public class ComptaYouTrackApiTest {
     @Test
     public void test() throws ConfigurationException, FileNotFoundException, MalformedURLException, SAXException, DocumentException {
-        YouTrackApi youTrackApi = new YouTrackApi();
-        youTrackApi.getVpaCredentials();
-        Issue issue = youTrackApi.getIssue("CMPT-129");
+        ComptaYouTrackApi comptaYouTrackApi = new ComptaYouTrackApi();
+        comptaYouTrackApi.getVpaCredentials();
+        Issue issue = comptaYouTrackApi.getIssue("CMPT-119");
         Assert.assertThat(issue.getEstimation(), is("2 Points"));
         Assert.assertThat(issue.getAssignee(), is("vpa"));
     }
