@@ -29,20 +29,15 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 
-import static com.youTrack.YouTrackIssueFields.*;
-
 /**
  * @author Victor Papakirikos (vpa)
  * @since 13/07/2016
  */
 public class YouTrackApi {
 
-
     private static org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger(Log4JLogger.class);
 
-
     private HttpHeaders credentials;
-    private EnumMap<YouTrackIssueFields, String> youTrackIssueFieldsString = new EnumMap<>(YouTrackIssueFields.class);
 
     public void getCredentials() throws ConfigurationException {
         PropertiesConfiguration pc = new PropertiesConfiguration("config.properties");
@@ -78,7 +73,7 @@ public class YouTrackApi {
         return credentials;
     }
 
-    public void getIssue(String issueId) throws DocumentException, FileNotFoundException, MalformedURLException, SAXException {
+    public Issue getIssue(String issueId) throws DocumentException, FileNotFoundException, MalformedURLException, SAXException {
 
         String url = "http://trac.tentelemed.com:8080/youtrack/rest/issue/" + issueId;
         RestTemplate restTemplate = new RestTemplate();
@@ -86,49 +81,50 @@ public class YouTrackApi {
         HttpEntity<String> entity = new HttpEntity<>("parameters", credentials);
         ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
         String xmlResult = result.getBody();
+        Document document = makeDocument(xmlResult);
+        List<Node> nodes = document.selectNodes("issue/field/*");
+        Issue issue = new Issue();
+        for (Node node : nodes) {
+            fillField(issue, node);
+        }
+        return issue;
+    }
+
+    private Document makeDocument(String xmlResult) throws FileNotFoundException, MalformedURLException, DocumentException {
         File file = new File("./temp.xml");
         PrintWriter printWriter = new PrintWriter(file);
         printWriter.println(xmlResult);
         printWriter.close();
-
         SAXReader reader = new SAXReader();
         Document document = reader.read(file);
         file.delete();
-        List<Node> nodes = document.selectNodes("issue/field/*");
-
-        System.out.println("----------------------------");
-        for (Node node : nodes)
-            if (node instanceof Element) {
-                String name = node.getParent().attributeValue("name");
-                Element element = (Element) node;
-                if (name.equals("projetShortName"))
-                    this.youTrackIssueFieldsString.put(PROJECT_SHORT_NAME, element.getText());
-                if (name.equals("numberInProjet"))
-                    this.youTrackIssueFieldsString.put(NUMBER_IN_PROJECT, element.getText());
-                if (name.equals("summary")) this.youTrackIssueFieldsString.put(SUMMARY, element.getText());
-                if (name.equals("description")) this.youTrackIssueFieldsString.put(DESCRIPTION, element.getText());
-                if (name.equals("created")) this.youTrackIssueFieldsString.put(CREATED, element.getText());
-                if (name.equals("updated")) this.youTrackIssueFieldsString.put(UPDATED, element.getText());
-                if (name.equals("updaterName")) this.youTrackIssueFieldsString.put(UPDATERNAME, element.getText());
-                if (name.equals("updaterFullName"))
-                    this.youTrackIssueFieldsString.put(UPDATERFULLNAME, element.getText());
-                if (name.equals("reporterName")) this.youTrackIssueFieldsString.put(REPORTERNAME, element.getText());
-                if (name.equals("reporterFullName"))
-                    this.youTrackIssueFieldsString.put(REPORTERFULLNAME, element.getText());
-                if (name.equals("commentsCount")) this.youTrackIssueFieldsString.put(COMMENTSCOUNT, element.getText());
-                if (name.equals("votes")) this.youTrackIssueFieldsString.put(VOTES, element.getText());
-                if (name.equals("links")) this.youTrackIssueFieldsString.put(LINKS, element.getText());
-                if (name.equals("priority")) this.youTrackIssueFieldsString.put(PRIORITY, element.getText());
-                if (name.equals("type")) this.youTrackIssueFieldsString.put(TYPE, element.getText());
-                if (name.equals("state")) this.youTrackIssueFieldsString.put(STATE, element.getText());
-                if (name.equals("assignee")) this.youTrackIssueFieldsString.put(ASSIGNEE, element.getText());
-                if (name.equals("subsystem")) this.youTrackIssueFieldsString.put(SUBSTYSTEM, element.getText());
-                if (name.equals("estimation")) this.youTrackIssueFieldsString.put(ESTIMATION, element.getText());
-            }
-
-        System.out.println(this.youTrackIssueFieldsString.get(DESCRIPTION));
-
+        return document;
     }
 
+    private void fillField(Issue issue, Node node) {
+        if (node instanceof Element) {
+            String name = node.getParent().attributeValue("name");
+            Element element = (Element) node;
+            if (name.contains("projetShortName")) issue.setProjectShortName(element.getText());
+            if (name.contains("numberInProjet")) issue.setNumberInProject(element.getText());
+            if (name.contains("summary")) issue.setNumberInProject(element.getText());
+            if (name.contains("description")) issue.setDescription(element.getText());
+            if (name.contains("created")) issue.setCreated(element.getText());
+            if (name.contains("updated")) issue.setUpdated(element.getText());
+            if (name.contains("updaterName")) issue.setUpdaterName(element.getText());
+            if (name.contains("updaterFullName")) issue.setUpdaterFullName(element.getText());
+            if (name.contains("reporterName")) issue.setReporterName(element.getText());
+            if (name.contains("reporterFullName")) issue.setReporterFullName(element.getText());
+            if (name.contains("commentsCount")) issue.setCommentsCount(element.getText());
+            if (name.contains("votes")) issue.setVotes(element.getText());
+            if (name.contains("links")) issue.setLinks(element.getText());
+            if (name.contains("priority")) issue.setPriority(element.getText());
+            if (name.contains("type")) issue.setType(element.getText());
+            if (name.contains("state")) issue.setState(element.getText());
+            if (name.contains("assignee")) issue.setAssignee(element.getText());
+            if (name.contains("subsystem")) issue.setSubsystem(element.getText());
+            if (name.contains("estimation")) issue.setEstimation(element.getText());
+        }
+    }
 }
 
