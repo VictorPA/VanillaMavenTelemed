@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<issue id="CMPT-129">
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SingleField" name="projectShortName">
+        <value>CMPT</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SingleField" name="numberInProject">
+        <value>129</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SingleField" name="summary">
+        <value>Contacts &gt; Import d'une liste</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SingleField" name="description">
+        <value>Possibilité d'importer une liste de contacts via un fichier excel.
+            -Créer un bouton "importer".
+            -Colonnes devant être remplies : Nom - Prénom - Compte client - Mail
+            -Compte client - utiliser le nom
+            -Les colonnes optionnelles sont : Fonction, Adresse, Pays(code iso 2 lettres)**, Téléphone de bureau,
+            Téléphone Mobile, Fax
+
+            **Ce champ sert à remplir automatiquement l'indicatif international pour les numéros de téléphone et fax
+            Exemple : | 0164646464 | FR | donnera +33164646464
+        </value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SingleField" name="created">
+        <value>1467623626275</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SingleField" name="updated">
+        <value>1467884897581</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SingleField" name="updaterName">
+        <value>vpa</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SingleField" name="updaterFullName">
+        <value>Victor Papakirikos</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SingleField" name="reporterName">
+        <value>vpa</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SingleField" name="reporterFullName">
+        <value>Victor Papakirikos</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SingleField" name="commentsCount">
+        <value>1</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SingleField" name="votes">
+        <value>0</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="LinkField" name="links">
+        <value type="Subtask" role="subtask of">CMPT-116</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CustomField" name="Priority">
+        <value>Normal</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CustomField" name="Type">
+        <value>Feature</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CustomField" name="State">
+        <value>Open</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="MultiUserField" name="Assignee">
+        <value fullName="Victor Papakirikos">vpa</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CustomField" name="Subsystem">
+        <value>Contacts</value>
+    </field>
+    <field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CustomField" name="Estimation (points)">
+        <value>2 Points</value>
+    </field>
+    <comment id="61-8562" author="vpa" authorFullName="Victor Papakirikos" issueId="CMPT-129" deleted="false"
+             text="Concernant la gestion des champs du fichier excel non reconnaissables par l'application ou ne respectant pas les contraintes de persistances : &#xA;-Annuler l'import en invitant à respecter le format attendu&#xA;-Annuler la/les ligne(s) comportant l'erreur avec message informatif&#xA;-Valider la ligne en remplaçant les champs défectueux par des champs par défaut à remplir ensuite manuellement ex: &quot;NON IMPORTÉ&quot;"
+             shownForIssueAuthor="false" created="1467884897549">
+        <replies/>
+    </comment>
+</issue>

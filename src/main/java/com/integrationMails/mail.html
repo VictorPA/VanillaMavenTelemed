@@ -1,0 +1,78 @@
+<html>
+<head>
+    <style>* {
+        font-weight: normal;
+        border-radius: 1px;
+    }
+
+    #head {
+        font-weight: bolder;
+    }
+
+    thead th {
+        background: #c8c8ff;
+    }
+
+    td {
+        background: #E0FFFF;
+        padding: 5px;
+    }
+
+    table {
+        width: 600px;
+        border: 1px solid blue;
+    }
+
+    tbody th {
+        background: #AEB6C2;
+        padding: 5px;
+        vertical-align: top;
+        text-align: left;
+        width: 135px;
+    }</style>
+</head>
+<body>
+<table>
+    <thead>
+    <th id='head' colspan=2>
+        ${owner} has invited you to ${caption}
+    </th>
+    </thead>
+    <tbody>
+    <tr>
+        <th>Title :</th>
+        <td>
+            ${caption}
+        </td>
+    </tr>
+    <tr>
+        <th>Location :</th>
+        <td>${location}</td>
+    </tr>
+    <tr>
+        <th>When :</th>
+        <td>${month} ${day} ${year} à ${startHour}:${startMinutes}-${endHour}:${endMinutes}
+        </td>
+    </tr>
+    <tr>
+        <th>Organizer :</th>
+        <td>${owner}
+        </td>
+    </tr>
+    <tr>
+        <th>Description :</th>
+        <td>${description}
+        </td>
+    </tr>
+    <tr>
+        <th rowspan=${rows}>Participants :</th>
+    </tr>
+    <#list userData?keys as key>
+        <tr>
+            <td>${userData[key]} ${key}</td>
+        </tr>
+    </#list>
+    </tbody>
+</table>
+</body>
+</html>
