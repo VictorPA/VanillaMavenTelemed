@@ -2,12 +2,9 @@ package com.youTrack;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
-import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
-import org.xml.sax.InputSource;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,14 +12,14 @@ import java.util.List;
  * @author Victor Papakirikos (vpa)
  * @since 13/07/2016
  */
-public abstract class YouTrackXmlDocument {
+public abstract class YoutrackXmlDocument {
 
 
-    private YouTrackXmlDocument() {
+    private YoutrackXmlDocument() {
         //No external subclassing allowed
     }
 
-    public static YouTrackXmlDocument getYouTrackXmlDocument(String xmlResult) {
+    public static YoutrackXmlDocument getYouTrackXmlDocument(String xmlResult) {
         try {
             return new FunctionnalYouTrackXmlDocument(xmlResult);
         } catch (DocumentException e) {
@@ -32,7 +29,7 @@ public abstract class YouTrackXmlDocument {
 
     public abstract List selectNodes(String xpathExpression);
 
-    private static class FunctionnalYouTrackXmlDocument extends YouTrackXmlDocument {
+    private static class FunctionnalYouTrackXmlDocument extends YoutrackXmlDocument {
         private Document document;
 
         private FunctionnalYouTrackXmlDocument(String xmlResult) throws DocumentException {
@@ -55,7 +52,7 @@ public abstract class YouTrackXmlDocument {
         }
     }
 
-    private static class NullYouTrackXmlDocument extends YouTrackXmlDocument {
+    private static class NullYouTrackXmlDocument extends YoutrackXmlDocument {
         private NullYouTrackXmlDocument(String xmlResult) {
 
         }

@@ -9,12 +9,14 @@ import org.springframework.http.*;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Victor Papakirikos (vpa)
@@ -63,25 +65,32 @@ public class ComptaYouTrackApi {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<String> entity = new HttpEntity<>("parameters", httpHeaders);
-        /*
-        HttpMessageConverter<Issue> httpMessageConverter = new StringHttpMessageConverter();
-        ResponseEntity<Issue> result2 = restTemplate.exchange(url, HttpMethod.GET, entity, Issue.class);
-        Issue myIssue = result2.getBody();
-        */
 
-        ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+        restTemplate.setMessageConverters(getMessageConverters());
+    //    ResponseEntity<String> result3 = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+
+
+        ResponseEntity<Map> result2 = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);
+        Map myIssue = result2.getBody();
+
+        System.out.println(myIssue);
+
+
+      /*  ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
         String xmlResult = result.getBody();
-        System.out.println(xmlResult);
 
-        YouTrackXmlDocument document = YouTrackXmlDocument.getYouTrackXmlDocument(xmlResult);
 
+        YoutrackXmlDocument document = YoutrackXmlDocument.getYouTrackXmlDocument(xmlResult);
 
         List<Node> nodes = document.selectNodes(xpathExpression);
         Issue issue = new Issue();
         for (Node node : nodes) {
             fillField(issue, node);
         }
-        return issue;
+        return issue;*/
+     //  return myIssue;
+        return new Issue();
     }
 
     private MultiValueMap<String, String> configureParameters(String login, String password) {
@@ -130,6 +139,11 @@ public class ComptaYouTrackApi {
         }
     }
 
+    private List<HttpMessageConverter<?>> getMessageConverters() {
+        List<HttpMessageConverter<?>> converters = new ArrayList<>();
+        converters.add(new MappingJackson2HttpMessageConverter());
+        return converters;
+    }
 
 }
 
