@@ -49,13 +49,9 @@ public abstract class YouTrackXmlDocument {
             return document.selectNodes(xpathExpression);
         }
 
-
     }
 
-
     private static class NullYouTrackXmlDocument extends YouTrackXmlDocument {
-
-
         private NullYouTrackXmlDocument(String xmlResult) {
 
         }
