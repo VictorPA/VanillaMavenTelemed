@@ -1,3 +1,5 @@
+package jsonTrain;
+
 import com.autow.Jardin;
 import com.config.SpringConfiguration;
 import com.xmlassource.MonMaaven;
@@ -12,7 +14,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 /**
  * Created by Victor on 30/05/2016.
  */
-public class MonMaavenTest {
+public class Maaventest {
    /* @Test
     public void monMaavenTest() throws Exception {
         PropertiesConfiguration conf = new PropertiesConfiguration("application.properties");

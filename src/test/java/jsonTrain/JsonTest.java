@@ -37,7 +37,7 @@ import javax.ws.rs.core.MediaType;
  * @author Victor Papakirikos (vpa)
  * @since 11/07/2016
  */
-public class monJsonTest {
+public class JsonTest {
 
 
     private JsonObject jsonObject;

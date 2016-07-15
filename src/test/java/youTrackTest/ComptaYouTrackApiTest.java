@@ -1,4 +1,4 @@
-package jsonTrain;
+package youTrackTest;
 
 import com.youTrack.Issue;
 import com.youTrack.ComptaYouTrackApi;
@@ -22,8 +22,10 @@ public class ComptaYouTrackApiTest {
     public void test() throws ConfigurationException, FileNotFoundException, MalformedURLException, SAXException, DocumentException {
         ComptaYouTrackApi comptaYouTrackApi = new ComptaYouTrackApi();
         comptaYouTrackApi.getVpaCredentials();
-        Issue issue = comptaYouTrackApi.getIssue("CMPT-119");
+        Issue issue = comptaYouTrackApi.getIssue("CMPT-129");
         Assert.assertThat(issue.getEstimation(), is("2 Points"));
         Assert.assertThat(issue.getAssignee(), is("vpa"));
+        System.out.println(issue.toString());
+
     }
 }

@@ -54,7 +54,7 @@ public class ComptaYouTrackApi {
         String xpathExpression = "issue/field/*";
         HttpHeaders httpHeaders = new HttpHeaders();
         List<MediaType> mediaTypes = new ArrayList<>();
-        mediaTypes.add(MediaType.APPLICATION_XML);
+        mediaTypes.add(MediaType.APPLICATION_JSON);
 
         httpHeaders.setAccept(mediaTypes);
         httpHeaders.add("Cookie", this.credentials);
@@ -63,12 +63,20 @@ public class ComptaYouTrackApi {
         RestTemplate restTemplate = new RestTemplate();
 
         HttpEntity<String> entity = new HttpEntity<>("parameters", httpHeaders);
+        /*
+        HttpMessageConverter<Issue> httpMessageConverter = new StringHttpMessageConverter();
+        ResponseEntity<Issue> result2 = restTemplate.exchange(url, HttpMethod.GET, entity, Issue.class);
+        Issue myIssue = result2.getBody();
+        */
+
         ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
         String xmlResult = result.getBody();
+        System.out.println(xmlResult);
 
-        YouTrackXmlDocument youTrackXmlDocument = YouTrackXmlDocument.getYouTrackXmlDocument(xmlResult);
+        YouTrackXmlDocument document = YouTrackXmlDocument.getYouTrackXmlDocument(xmlResult);
 
-        List<Node> nodes = youTrackXmlDocument.selectNodes(xpathExpression);
+
+        List<Node> nodes = document.selectNodes(xpathExpression);
         Issue issue = new Issue();
         for (Node node : nodes) {
             fillField(issue, node);
@@ -100,17 +108,17 @@ public class ComptaYouTrackApi {
         if (node instanceof Element) {
             String name = node.getParent().attributeValue("name");
             Element element = (Element) node;
-            if (name.toLowerCase().contains("projetShortName")) issue.setProjectShortName(element.getText());
-            if (name.toLowerCase().contains("numberInProjet")) issue.setNumberInProject(element.getText());
-            if (name.toLowerCase().contains("summary")) issue.setNumberInProject(element.getText());
+            if (name.toLowerCase().contains("projectshortname")) issue.setProjectShortName(element.getText());
+            if (name.toLowerCase().contains("numberinproject")) issue.setNumberInProject(element.getText());
+            if (name.toLowerCase().contains("summary")) issue.setSummary(element.getText());
             if (name.toLowerCase().contains("description")) issue.setDescription(element.getText());
             if (name.toLowerCase().contains("created")) issue.setCreated(element.getText());
             if (name.toLowerCase().contains("updated")) issue.setUpdated(element.getText());
-            if (name.toLowerCase().contains("updaterName")) issue.setUpdaterName(element.getText());
-            if (name.toLowerCase().contains("updaterFullName")) issue.setUpdaterFullName(element.getText());
-            if (name.toLowerCase().contains("reporterName")) issue.setReporterName(element.getText());
-            if (name.toLowerCase().contains("reporterFullName")) issue.setReporterFullName(element.getText());
-            if (name.toLowerCase().contains("commentsCount")) issue.setCommentsCount(element.getText());
+            if (name.toLowerCase().contains("updatername")) issue.setUpdaterName(element.getText());
+            if (name.toLowerCase().contains("updaterfullname")) issue.setUpdaterFullName(element.getText());
+            if (name.toLowerCase().contains("reportername")) issue.setReporterName(element.getText());
+            if (name.toLowerCase().contains("reporterfullname")) issue.setReporterFullName(element.getText());
+            if (name.toLowerCase().contains("commentscount")) issue.setCommentsCount(element.getText());
             if (name.toLowerCase().contains("votes")) issue.setVotes(element.getText());
             if (name.toLowerCase().contains("links")) issue.setLinks(element.getText());
             if (name.toLowerCase().contains("priority")) issue.setPriority(element.getText());

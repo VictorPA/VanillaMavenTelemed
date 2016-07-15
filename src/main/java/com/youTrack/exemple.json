@@ -1,0 +1,120 @@
+{
+  "id": "CMPT-129",
+  "jiraId": null,
+  "field": [
+    {
+      "name": "projectShortName",
+      "value": "CMPT"
+    },
+    {
+      "name": "numberInProject",
+      "value": "129"
+    },
+    {
+      "name": "summary",
+      "value": "Contacts > Import d'une liste"
+    },
+    {
+      "name": "description",
+      "value": "Possibilité d'importer une liste de contacts via un fichier excel.\n-Créer un bouton \"importer\".\n-Colonnes devant être remplies :  Nom - Prénom - Compte client - Mail\n-Compte client - utiliser le nom\n-Les colonnes optionnelles sont : Fonction, Adresse, Pays(code iso 2 lettres)**, Téléphone de bureau, Téléphone Mobile, Fax \n\n**Ce champ sert à remplir automatiquement l'indicatif international pour les numéros de téléphone et fax\nExemple : | 0164646464 | FR | donnera +33164646464\n"
+    },
+    {
+      "name": "created",
+      "value": "1467623626275"
+    },
+    {
+      "name": "updated",
+      "value": "1467884897581"
+    },
+    {
+      "name": "updaterName",
+      "value": "vpa"
+    },
+    {
+      "name": "updaterFullName",
+      "value": "Victor Papakirikos"
+    },
+    {
+      "name": "reporterName",
+      "value": "vpa"
+    },
+    {
+      "name": "reporterFullName",
+      "value": "Victor Papakirikos"
+    },
+    {
+      "name": "commentsCount",
+      "value": "1"
+    },
+    {
+      "name": "votes",
+      "value": "0"
+    },
+    {
+      "name": "links",
+      "value": [
+        {
+          "type": "Subtask",
+          "role": "subtask of",
+          "value": "CMPT-116"
+        }
+      ]
+    },
+    {
+      "name": "Priority",
+      "value": [
+        "Normal"
+      ]
+    },
+    {
+      "name": "Type",
+      "value": [
+        "Feature"
+      ]
+    },
+    {
+      "name": "State",
+      "value": [
+        "Open"
+      ]
+    },
+    {
+      "name": "Assignee",
+      "value": [
+        {
+          "fullName": "Victor Papakirikos",
+          "value": "vpa"
+        }
+      ]
+    },
+    {
+      "name": "Subsystem",
+      "value": [
+        "Contacts"
+      ]
+    },
+    {
+      "name": "Estimation (points)",
+      "value": [
+        "2 Points"
+      ]
+    }
+  ],
+  "comment": [
+    {
+      "id": "61-8562",
+      "author": "vpa",
+      "authorFullName": "Victor Papakirikos",
+      "issueId": "CMPT-129",
+      "parentId": null,
+      "deleted": false,
+      "jiraId": null,
+      "text": "Concernant la gestion des champs du fichier excel non reconnaissables par l'application ou ne respectant pas les contraintes de persistances : \n-Annuler l'import en invitant à respecter le format attendu\n-Annuler la/les ligne(s) comportant l'erreur avec message informatif\n-Valider la ligne en remplaçant les champs défectueux par des champs par défaut à remplir ensuite manuellement ex: \"NON IMPORTÉ\"",
+      "shownForIssueAuthor": false,
+      "created": 1467884897549,
+      "updated": null,
+      "replies": []
+    }
+  ],
+  "tag": []
+}
