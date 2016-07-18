@@ -18,24 +18,13 @@ public class Issue {
     private String projectShortName;
     private int numberInProject;
     private String summary;
-    private String description;
     private Date created;
     private Date updated;
-    private String updaterName;
-    private String updaterFullName;
-    private String reporterName;
-    private String reporterFullName;
-    private int commentsCount;
-    private int votes;
-    private String links;
-    private String priority;
     private String type;
     private String state;
     private String assignee;
     private String subsystem;
     private String estimation;
-
-
 
 
     public String getProjectShortName() {
@@ -62,13 +51,6 @@ public class Issue {
         this.summary = summary;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public Date getCreated() {
         return created;
@@ -95,69 +77,6 @@ public class Issue {
         }
     }
 
-    public String getUpdaterName() {
-        return updaterName;
-    }
-
-    public void setUpdaterName(String updaterName) {
-        this.updaterName = updaterName;
-    }
-
-    public String getUpdaterFullName() {
-        return updaterFullName;
-    }
-
-    public void setUpdaterFullName(String updaterFullName) {
-        this.updaterFullName = updaterFullName;
-    }
-
-    public String getReporterName() {
-        return reporterName;
-    }
-
-    public void setReporterName(String reporterName) {
-        this.reporterName = reporterName;
-    }
-
-    public String getReporterFullName() {
-        return reporterFullName;
-    }
-
-    public void setReporterFullName(String reporterFullName) {
-        this.reporterFullName = reporterFullName;
-    }
-
-    public int getCommentsCount() {
-        return commentsCount;
-    }
-
-    public void setCommentsCount(String commentsCount) {
-        this.commentsCount = Integer.parseInt(commentsCount);
-    }
-
-    public int getVotes() {
-        return votes;
-    }
-
-    public void setVotes(String votes) {
-        this.votes = Integer.parseInt(votes);
-    }
-
-    public String getLinks() {
-        return links;
-    }
-
-    public void setLinks(String links) {
-        this.links = links;
-    }
-
-    public String getPriority() {
-        return priority;
-    }
-
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
 
     public String getType() {
         return type;
@@ -201,25 +120,16 @@ public class Issue {
 
     @Override public String toString() {
         return "Issue{" +
-                "projectShortName='" + projectShortName + '\'' +
-                ", numberInProject='" + numberInProject + '\'' +
-                ", summary='" + summary + '\'' +
-                ", description='" + description + '\'' +
-                ", created='" + created + '\'' +
-                ", updated='" + updated + '\'' +
-                ", updaterName='" + updaterName + '\'' +
-                ", updaterFullName='" + updaterFullName + '\'' +
-                ", reporterName='" + reporterName + '\'' +
-                ", reporterFullName='" + reporterFullName + '\'' +
-                ", commentsCount='" + commentsCount + '\'' +
-                ", votes='" + votes + '\'' +
-                ", links='" + links + '\'' +
-                ", priority='" + priority + '\'' +
-                ", type='" + type + '\'' +
-                ", state='" + state + '\'' +
-                ", assignee='" + assignee + '\'' +
-                ", subsystem='" + subsystem + '\'' +
-                ", estimation='" + estimation + '\'' +
+                "\n projectShortName = '" + projectShortName + '\'' +
+                ",\n numberInProject = " + numberInProject +
+                ",\n summary = '" + summary + '\'' +
+                ",\n created = " + created +
+                ",\n updated = " + updated +
+                ",\n type = '" + type + '\'' +
+                ",\n state = '" + state + '\'' +
+                ",\n assignee = '" + assignee + '\'' +
+                ",\n subsystem = '" + subsystem + '\'' +
+                ",\n estimation = '" + estimation + '\'' +
                 '}';
     }
 }
