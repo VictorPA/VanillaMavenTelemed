@@ -55,42 +55,59 @@ public class ComptaYouTrackApi {
 
         String xpathExpression = "issue/field/*";
         HttpHeaders httpHeaders = new HttpHeaders();
-        List<MediaType> mediaTypes = new ArrayList<>();
-        mediaTypes.add(MediaType.APPLICATION_JSON);
 
-        httpHeaders.setAccept(mediaTypes);
+        httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         httpHeaders.add("Cookie", this.credentials);
 
         String url = "http://trac.tentelemed.com:8080/youtrack/rest/issue/" + issueId;
         RestTemplate restTemplate = new RestTemplate();
-
         HttpEntity<String> entity = new HttpEntity<>("parameters", httpHeaders);
-
         restTemplate.setMessageConverters(getMessageConverters());
-    //    ResponseEntity<String> result3 = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-
-
 
         ResponseEntity<Map> result2 = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);
-        Map myIssue = result2.getBody();
+        Map<String, List<Map<String, Object>>> myIssue = result2.getBody();
+        List<Map<String, Object>> fields = myIssue.get("field");
+        Issue issue = new Issue();
+        for (Map<String, Object> data : fields) {
+            if (String.valueOf(data.get("name")).toLowerCase().contains("projectshortname"))
+                issue.setProjectShortName(String.valueOf(data.get("value")));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("numberInProject"))
+                issue.setNumberInProject(String.valueOf(data.get("value")));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("summary"))
+                issue.setSummary(String.valueOf(data.get("value")));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("description"))
+                issue.setDescription(String.valueOf(data.get("value")));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("created"))
+                issue.setCreated(String.valueOf(data.get("value")));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("updated"))
+                issue.setUpdated(String.valueOf(data.get("value")));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("updatername"))
+                issue.setUpdaterName(String.valueOf(data.get("value")));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("updaterfullname"))
+                issue.setUpdaterFullName(String.valueOf(data.get("value")));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("reportername"))
+                issue.setReporterName(String.valueOf(data.get("value")));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("reporterfullname"))
+                issue.setReporterFullName(String.valueOf(data.get("value")));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("commentscount"))
+                issue.setCommentsCount(String.valueOf(data.get("value")));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("votes"))
+                issue.setVotes(String.valueOf(data.get("value")));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("type"))
+                issue.setType((String) ((List) (data.get("value"))).get(0));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("state"))
+                issue.setState(String.valueOf(data.get("value")));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("assignee"))
+                issue.setAssignee(String.valueOf(((Map) (((List) (data.get("value"))).get(0))).get("value")));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("subsystem"))
+                issue.setSubsystem(String.valueOf(data.get("value")));
+            if (String.valueOf(data.get("name")).toLowerCase().contains("estimation"))
+                issue.setEstimation(String.valueOf(data.get("value")));
+        }
 
         System.out.println(myIssue);
 
-
-      /*  ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-        String xmlResult = result.getBody();
-
-
-        YoutrackXmlDocument document = YoutrackXmlDocument.getYouTrackXmlDocument(xmlResult);
-
-        List<Node> nodes = document.selectNodes(xpathExpression);
-        Issue issue = new Issue();
-        for (Node node : nodes) {
-            fillField(issue, node);
-        }
-        return issue;*/
-     //  return myIssue;
-        return new Issue();
+        return issue;
     }
 
     private MultiValueMap<String, String> configureParameters(String login, String password) {
