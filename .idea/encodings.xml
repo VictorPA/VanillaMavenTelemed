@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/autow/Arbre.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/manuel/Speaker.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/monBus/MyEvent.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/stringParsingTests/ComptaStringUtils.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/stringParsingTests/MyStringParsing.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/visitoto/Vue.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/youTrack/Issue.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/youTrack/exemple.json" charset="ISO-8859-1" />
+  </component>
+</project>
